@@ -33,7 +33,7 @@ class Client(object):
 	"""
 	Simple and reusable client for scanii.com
 	"""
-	def __init__(self,url=API_URL, key, secret):
+	def __init__(self,key, secret,url=API_URL,):
 		self.url = url
 		self.key = key
 		self.secret = secret
@@ -134,7 +134,7 @@ def main():
 	print("Scanii python client version %s" % __version__)
 	print("Using url: %s" % options.url)
 	print("Using API key: %s" % key)
-	client = Client(options.url, key, secret)
+	client = Client( key, secret, url=options.url)
 	
 	print('')
 	print('Building file listing for target %s'  % target )
