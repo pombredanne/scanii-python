@@ -24,3 +24,4 @@ Using it:
 Import things to note:
 	1. This client can also be used as a standalone library in your application
 	2. You can store your credentials in a environment variable called SCANII_CRED 
+	3. The license is MIT/X11 so use it and abuse it :)
