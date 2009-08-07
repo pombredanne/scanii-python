@@ -33,7 +33,7 @@ class Client(object):
 	"""
 	Simple and reusable client for scanii.com
 	"""
-	def __init__(self,url, key, secret):
+	def __init__(self,url=API_URL, key, secret):
 		self.url = url
 		self.key = key
 		self.secret = secret
@@ -54,6 +54,7 @@ class Client(object):
 		log.debug('client init with endpoint %s' % url)			
 		
 	def api_call(self,data):
+		"""http heavy lifting """
 	
 		req = urllib2.Request(self.url, data )
 		resp = urllib2.urlopen(req)
