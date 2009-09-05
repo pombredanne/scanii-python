@@ -160,7 +160,7 @@ def main():
 	for file in files:
 		
 		start = time.time()
-		
+		log.debug('attempting to scan file %s' % file)
 		try:
 			j = client.scan(file)
 		
