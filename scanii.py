@@ -26,7 +26,7 @@ __version__ = "0.2"
 __license__ ="MIT/X11"
 
 DESC = "Scanii's python command line client"
-API_URL = "http://scanii.com/a/s/1/"
+API_URL = "https://scanii.com/api/scan/"
 ENV_VAR = 'SCANII_CRED'
 
 class Client(object):
@@ -39,7 +39,13 @@ class Client(object):
 		self.secret = secret
 		self.infected = []
 		self.clean= []
+				
+		log.debug('client init with endpoint %s' % url)			
 		
+	def api_call(self,data):
+		"""http heavy lifting """
+	
+		req = urllib2.Request(self.url, data )
 		passman = urllib2.HTTPPasswordMgrWithDefaultRealm()
 
 		passman.add_password(None, self.url, self.key, self.secret)
@@ -50,13 +56,6 @@ class Client(object):
 		opener = urllib2.build_opener(authhandler)
 
 		urllib2.install_opener(opener)
-		
-		log.debug('client init with endpoint %s' % url)			
-		
-	def api_call(self,data):
-		"""http heavy lifting """
-	
-		req = urllib2.Request(self.url, data )
 		resp = urllib2.urlopen(req)
 		j = json.loads(resp.read())
 		
@@ -86,14 +85,7 @@ def main():
 	parser.add_option("-v","--verbose", dest="verbose", help="runs in verbose mode", action="store_true", default=False)
 	parser.add_option("-r","--recursive", dest="recursive", help="descends throught PATH pulling all files", action="store_true", default=False)
 	parser.add_option("-u","--url", dest="url", help="API address to be used instead of scanii's default", action="store", default=API_URL)
-	#parser.add_option("-a","--address", dest="address", help="the name/ip to listen on (if server) or to send to (if client)", action="store")
-	
-	# client only options
-	#client_options = optparse.OptionGroup(parser,"Client options")
-	#client_options.add_option("-k","--packet-size", action="store", dest="packet_size", help="packet size in kbytes")
-	#client_options.add_option("-n","--packet-count", action="store", dest="packet_count", help="number of packets to send before quitting")
-	#parser.add_option_group(client_options)
-	
+
 
 	(options,args) = parser.parse_args()
 
